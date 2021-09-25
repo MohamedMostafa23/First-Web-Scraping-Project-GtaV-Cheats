@@ -1,0 +1,20 @@
+from bs4 import BeautifulSoup 
+import requests
+import pandas as pd
+
+
+url = "https://www.gtcord.com/games/gta-v-cheats-codes-secrets-pc.html"
+data  = requests.get(url).text 
+soup = BeautifulSoup(data,"html5lib")  
+
+tables = soup.find_all('table')
+len(tables)
+
+pd.read_html(str(tables[0]), flavor='bs4')
+GTAV = pd.read_html(str(tables[0]), flavor='bs4')[0]
+GTAV
+
+GTAV.to_excel('GTA5.xls', index=False)
+
+df = pd.read_excel(r'GTA5.xls')
+print (df)
